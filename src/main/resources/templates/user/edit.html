@@ -1,0 +1,73 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	  xmlns:shiro="http://www.pollix.at/thymeleaf/shiro"
+	  layout:decorate="layout/base">
+<head>
+	<title>用户列表</title>
+</head>
+<body layout:fragment="content" class="childrenBody">
+<form class="layui-form" style="width:80%;">
+	<input type="hidden" id="uid">
+	<div class="layui-form-item layui-row layui-col-xs12">
+		<label class="layui-form-label">登录名</label>
+		<div class="layui-input-block">
+			<input type="text" class="layui-input userName" lay-verify="required" placeholder="请输入登录名">
+		</div>
+	</div>
+	<div class="layui-form-item layui-row layui-col-xs12">
+		<label class="layui-form-label">昵称</label>
+		<div class="layui-input-block">
+			<input type="text" class="layui-input nickName" lay-verify="required" placeholder="请输入昵称">
+		</div>
+	</div>
+	<div class="layui-form-item layui-row layui-col-xs12">
+		<label class="layui-form-label">邮箱</label>
+		<div class="layui-input-block">
+			<input type="text" class="layui-input userEmail" lay-verify="email" placeholder="请输入邮箱">
+		</div>
+	</div>
+	<div class="layui-form-item layui-row layui-col-xs12">
+		<label class="layui-form-label">密码</label>
+		<div class="layui-input-block">
+			<input type="password" class="layui-input userPassword" lay-verify="password" placeholder="请输入密码">
+		</div>
+	</div>
+	<div class="layui-row">
+		<div class="magb15 layui-col-md4 layui-col-xs12">
+			<label class="layui-form-label">会员状态</label>
+			<div class="layui-input-block">
+				<select name="userStatus" class="userStatus" lay-filter="userStatus">
+					<option value="0">限制用户</option>
+					<option value="1">正常使用</option>
+				</select>
+			</div>
+		</div>
+	</div>
+	<div class="layui-row">
+		<div class="layui-form-item">
+			<label class="layui-form-label">角色</label>
+			<div class="layui-input-block">
+				<th:block th:each="role,roleStat : ${roleList}">
+					<input type="checkbox" name="userRole" th:value="${role.getId()}" th:title="${role.getName()}"
+					th:checked="${#arrays.contains(roleIds, role.getId())}">
+				</th:block>
+			</div>
+		</div>
+	</div>
+	<div class="layui-form-item layui-row layui-col-xs12">
+		<label class="layui-form-label">用户简介</label>
+		<div class="layui-input-block">
+			<textarea placeholder="请输入用户简介" class="layui-textarea description"></textarea>
+		</div>
+	</div>
+	<div class="layui-form-item layui-row layui-col-xs12">
+		<div class="layui-input-block">
+			<button class="layui-btn layui-btn-sm" lay-submit="" lay-filter="addUser">立即添加</button>
+			<button type="reset" class="layui-btn layui-btn-sm layui-btn-primary">取消</button>
+		</div>
+	</div>
+</form>
+
+<script type="text/javascript" th:src="@{/js/user/userAdd.js}"></script>
+</body>
+</html>
